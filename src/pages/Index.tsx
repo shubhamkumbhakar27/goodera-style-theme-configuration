@@ -60,8 +60,8 @@ const Index = () => {
     return (
       <div className={`min-h-screen ${theme.background.secondary} flex items-center justify-center`}>
         <div className={`${theme.typography.heading.xl} ${theme.colors.text.secondary}`}>Loading dashboard...</div>
-      );
-    }
+      </div>
+    );
   }
 
   return (
