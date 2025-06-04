@@ -28,15 +28,15 @@ export const theme = {
       muted: 'text-gray-500',
       white: 'text-white'
     },
-    background: {
-      primary: 'bg-white',
-      secondary: 'bg-gray-50',
-      muted: 'bg-gray-100'
-    },
     border: {
       light: 'border-gray-100',
       default: 'border-gray-200'
     }
+  },
+  background: {
+    primary: 'bg-white',
+    secondary: 'bg-gray-50',
+    muted: 'bg-gray-100'
   },
   spacing: {
     container: 'p-6',

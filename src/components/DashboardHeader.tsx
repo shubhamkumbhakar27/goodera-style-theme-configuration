@@ -3,7 +3,7 @@ import { theme, icons } from "../config/theme";
 
 const DashboardHeader = () => {
   return (
-    <div className={`${theme.colors.background.primary} ${theme.colors.border.default} border-b px-8 py-6`}>
+    <div className={`${theme.background.primary} ${theme.colors.border.default} border-b px-8 py-6`}>
       <div className="flex items-center justify-between">
         <div className={`flex items-center ${theme.spacing.gap.large}`}>
           <div className={`${icons.size.lg} ${theme.colors.primary.orange[100]} rounded flex items-center justify-center`}>

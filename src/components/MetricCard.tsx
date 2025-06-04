@@ -14,7 +14,7 @@ interface MetricCardProps {
 
 const MetricCard = ({ title, value, change, subtitle, icon, iconBg, changeColor }: MetricCardProps) => {
   return (
-    <div className={`${theme.colors.background.primary} ${theme.spacing.card} ${theme.layout.card.rounded} ${theme.layout.card.shadow} ${theme.colors.border.light} border`}>
+    <div className={`${theme.background.primary} ${theme.spacing.card} ${theme.layout.card.rounded} ${theme.layout.card.shadow} ${theme.colors.border.light} border`}>
       <div className={`flex items-start justify-between mb-4`}>
         <div className={`flex items-center ${theme.spacing.gap.medium}`}>
           <div className={`w-10 h-10 ${iconBg} rounded-lg flex items-center justify-center`}>

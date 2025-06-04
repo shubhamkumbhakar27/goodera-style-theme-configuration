@@ -58,14 +58,14 @@ const Index = () => {
 
   if (loading) {
     return (
-      <div className={`min-h-screen ${theme.colors.background.secondary} flex items-center justify-center`}>
+      <div className={`min-h-screen ${theme.background.secondary} flex items-center justify-center`}>
         <div className={`${theme.typography.heading.xl} ${theme.colors.text.secondary}`}>Loading dashboard...</div>
-      </div>
-    );
+      );
+    }
   }
 
   return (
-    <div className={`min-h-screen ${theme.colors.background.secondary} flex`}>
+    <div className={`min-h-screen ${theme.background.secondary} flex`}>
       <Sidebar />
       
       <div className="flex-1">
