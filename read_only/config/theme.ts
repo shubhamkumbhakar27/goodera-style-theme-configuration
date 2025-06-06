@@ -36,7 +36,8 @@ export const theme = {
   background: {
     primary: 'bg-white',
     secondary: 'bg-[#F2F2F2]',
-    muted: 'bg-gray-100'
+    muted: 'bg-gray-100',
+    card: 'bg-[#FBF9F3]'
   },
   spacing: {
     container: 'p-6',
