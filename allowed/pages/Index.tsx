@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
-import { Users, Calendar, Star, DollarSign, Settings } from "lucide-react";
+import { Users, Calendar, Star, DollarSign, Settings, ChevronDown, ChevronUp } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "../../src/components/ui/card";
 import Sidebar from "../components/Sidebar";
 import DashboardHeader from "../components/DashboardHeader";
 import MetricCard from "../components/MetricCard";
@@ -16,6 +17,7 @@ const Index = () => {
   const [error, setError] = useState<string | null>(null);
   const [showConfigModal, setShowConfigModal] = useState(false);
   const [useCustomApi, setUseCustomApi] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
     // Check if custom API is configured
@@ -161,20 +163,44 @@ const Index = () => {
             </div>
           </div>
           
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ${theme.spacing.gap.xlarge}`}>
-            {dashboardData?.metrics.map((metric, index) => (
-              <MetricCard
-                key={index}
-                title={metric.title}
-                value={metric.value}
-                change={metric.change}
-                subtitle={metric.subtitle}
-                icon={getIcon(metric.iconType)}
-                iconBg={getIconBg(metric.iconType)}
-                changeColor={metric.changeColor}
-              />
-            ))}
-          </div>
+          <Card className="bg-white shadow-sm border border-gray-100">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg font-medium text-gray-700 uppercase tracking-wide">
+                  DASHBOARD METRICS
+                </CardTitle>
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="p-1 hover:bg-gray-100 rounded transition-colors"
+                >
+                  {isExpanded ? (
+                    <ChevronUp className="w-5 h-5 text-gray-600" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-600" />
+                  )}
+                </button>
+              </div>
+            </CardHeader>
+            
+            {isExpanded && (
+              <CardContent className="pt-0">
+                <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ${theme.spacing.gap.xlarge}`}>
+                  {dashboardData?.metrics.map((metric, index) => (
+                    <MetricCard
+                      key={index}
+                      title={metric.title}
+                      value={metric.value}
+                      change={metric.change}
+                      subtitle={metric.subtitle}
+                      icon={getIcon(metric.iconType)}
+                      iconBg={getIconBg(metric.iconType)}
+                      changeColor={metric.changeColor}
+                    />
+                  ))}
+                </div>
+              </CardContent>
+            )}
+          </Card>
         </div>
       </div>
 
