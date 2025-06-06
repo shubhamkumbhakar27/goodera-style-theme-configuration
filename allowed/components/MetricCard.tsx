@@ -1,6 +1,6 @@
 
 import { ReactNode } from "react";
-import { theme } from "../config/theme";
+import { theme } from "../../read_only/config/theme";
 
 interface MetricCardProps {
   title: string;

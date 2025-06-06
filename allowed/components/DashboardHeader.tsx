@@ -1,5 +1,5 @@
 
-import { theme, icons } from "../config/theme";
+import { theme, icons } from "../../read_only/config/theme";
 
 const DashboardHeader = () => {
   return (

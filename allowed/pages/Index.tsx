@@ -1,13 +1,14 @@
+
 import { useState, useEffect } from "react";
 import { Users, Calendar, Star, DollarSign, Settings } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import DashboardHeader from "../components/DashboardHeader";
 import MetricCard from "../components/MetricCard";
 import ConfigModal from "../components/ConfigModal";
-import { fetchDashboardData, DashboardData } from "../services/dashboardApi";
+import { fetchDashboardData, DashboardData } from "../../read_only/services/dashboardApi";
 import { fetchCustomDashboardData } from "../services/customDashboardApi";
 import { ConfigService } from "../services/configService";
-import { theme, icons } from "../config/theme";
+import { theme, icons } from "../../read_only/config/theme";
 
 const Index = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);

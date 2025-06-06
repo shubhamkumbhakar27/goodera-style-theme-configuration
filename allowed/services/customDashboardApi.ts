@@ -1,6 +1,6 @@
 
 import { ConfigService } from "./configService";
-import { DashboardData, DashboardMetric } from "./dashboardApi";
+import { DashboardData, DashboardMetric } from "../../read_only/services/dashboardApi";
 
 const getNestedValue = (obj: any, path: string): any => {
   return path.split('.').reduce((current, key) => current?.[key], obj);
