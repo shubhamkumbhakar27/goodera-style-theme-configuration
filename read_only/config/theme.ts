@@ -3,11 +3,11 @@ export const theme = {
   colors: {
     primary: {
       orange: {
-        50: 'bg-orange-50',
-        100: 'bg-orange-100',
-        400: 'bg-orange-400',
-        500: 'bg-orange-500',
-        600: 'bg-orange-600'
+        50: 'bg-[#FBF9F3]',
+        100: 'bg-[#FBF9F3]',
+        400: 'bg-[#FF7A49]',
+        500: 'bg-[#FF7A49]',
+        600: 'bg-[#FF7A49]'
       },
       purple: {
         100: 'bg-purple-100',
@@ -35,7 +35,7 @@ export const theme = {
   },
   background: {
     primary: 'bg-white',
-    secondary: 'bg-gray-50',
+    secondary: 'bg-[#F2F2F2]',
     muted: 'bg-gray-100'
   },
   spacing: {
