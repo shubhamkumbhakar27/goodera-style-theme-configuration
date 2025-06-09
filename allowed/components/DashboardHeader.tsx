@@ -1,65 +1,39 @@
 
-import { useState, useEffect } from "react";
-import { theme, icons } from "../../read_only/config/theme";
-import { getUser, User } from "../../read_only/services/endpoints/index";
+import { Bell, Search } from 'lucide-react';
+import { theme } from "../../restricted/config/theme";
 
 const DashboardHeader = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await getUser();
-        if (response.results && response.results.length > 0) {
-          setUser(response.results[0]);
-        }
-      } catch (error) {
-        console.error('Failed to fetch user:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  const displayName = user ? `${user.name.first} ${user.name.last}` : "Shubham";
-  const profilePicture = user?.picture.large || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGq7B7PzE6rNSHjsNdvpwJHZMyNl8VJKFexw&s";
-
   return (
-    <div className={`${theme.background.card} ${theme.colors.border.default} border-b px-8 py-6`}>
+    <header className={`${theme.background.primary} border-b ${theme.colors.border.light} px-6 py-4`}>
       <div className="flex items-center justify-between">
-        <div className={`flex items-center ${theme.spacing.gap.large}`}>
-          <div className={`${icons.size.lg} ${theme.colors.primary.orange[100]} rounded flex items-center justify-center`}>
-            <div className={`${icons.size.sm} ${theme.colors.primary.orange[400]} rounded-sm`}></div>
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${theme.colors.text.muted} w-4 h-4`} />
+            <input
+              type="text"
+              placeholder="Search..."
+              className={`pl-10 pr-4 py-2 border ${theme.colors.border.default} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF7A49] focus:border-transparent`}
+            />
           </div>
-          <h1 className={`${theme.typography.heading['2xl']} ${theme.colors.text.primary}`}>Volunteer Pulse Central</h1>
         </div>
         
-        <div className={`flex items-center ${theme.spacing.gap.large}`}>
-          <div className={`flex items-center ${theme.spacing.gap.medium}`}>
-            <div className={`${icons.size.xl} rounded-full overflow-hidden`}>
-              {loading ? (
-                <div className="w-full h-full bg-gray-200 animate-pulse rounded-full"></div>
-              ) : (
-                <img 
-                  src={profilePicture}
-                  alt={displayName}
-                  className="w-full h-full object-cover"
-                />
-              )}
+        <div className="flex items-center space-x-4">
+          <button className={`p-2 ${theme.colors.text.muted} hover:${theme.colors.text.primary} transition-colors duration-200`}>
+            <Bell className="w-5 h-5" />
+          </button>
+          
+          <div className="flex items-center space-x-3">
+            <div className={`w-8 h-8 ${theme.colors.primary.orange[500]} rounded-full flex items-center justify-center`}>
+              <span className={`${theme.colors.text.white} ${theme.typography.body.sm} font-medium`}>A</span>
             </div>
             <div>
-              <div className={`${theme.typography.body.medium} ${theme.colors.text.primary}`}>
-                {loading ? "Loading..." : displayName}
-              </div>
-              <div className={`${theme.typography.body.sm} ${theme.colors.text.muted}`}>Central POC</div>
+              <div className={`${theme.typography.body.sm} font-medium ${theme.colors.text.primary}`}>Admin User</div>
+              <div className={`${theme.typography.body.sm} ${theme.colors.text.muted}`}>Administrator</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

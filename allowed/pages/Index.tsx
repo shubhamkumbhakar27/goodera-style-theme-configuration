@@ -1,13 +1,17 @@
 
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import DashboardHeader from "../components/DashboardHeader";
 import Dashboard from "../components/Dashboard";
-import { theme } from "../../read_only/config/theme";
+import ConfigModal from "../components/ConfigModal";
+import { theme } from "../../restricted/config/theme";
 
 const Index = () => {
+  const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
+
   return (
     <div className={`min-h-screen ${theme.background.secondary} flex`}>
-      <Sidebar />
+      <Sidebar onConfigClick={() => setIsConfigModalOpen(true)} />
       
       <div className="flex-1">
         <DashboardHeader />
@@ -15,6 +19,11 @@ const Index = () => {
           <Dashboard />
         </div>
       </div>
+
+      <ConfigModal 
+        isOpen={isConfigModalOpen} 
+        onClose={() => setIsConfigModalOpen(false)} 
+      />
     </div>
   );
 };
