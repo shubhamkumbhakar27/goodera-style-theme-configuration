@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../src/components/u
 import { Collapsible } from "../../src/components/ui/collapsible";
 import Sidebar from "../components/Sidebar";
 import DashboardHeader from "../components/DashboardHeader";
-import MetricCard from "../components/MetricCard";
 import ConfigModal from "../components/ConfigModal";
 import { fetchDashboardData, DashboardData } from "../../read_only/services/dashboardApi";
 import { fetchCustomDashboardData } from "../services/customDashboardApi";
@@ -82,15 +81,15 @@ const Index = () => {
   const getIcon = (iconType: string) => {
     switch (iconType) {
       case 'users':
-        return <Users className={`${icons.size.md} text-blue-600`} />;
+        return <Users className="w-6 h-6 text-blue-600" />;
       case 'calendar':
-        return <Calendar className={`${icons.size.md} text-blue-600`} />;
+        return <Calendar className="w-6 h-6 text-green-600" />;
       case 'star':
-        return <Star className={`${icons.size.md} text-orange-600`} />;
+        return <Star className="w-6 h-6 text-orange-600" />;
       case 'dollar':
-        return <DollarSign className={`${icons.size.md} text-green-600`} />;
+        return <DollarSign className="w-6 h-6 text-purple-600" />;
       default:
-        return <Users className={`${icons.size.md} text-blue-600`} />;
+        return <Users className="w-6 h-6 text-blue-600" />;
     }
   };
 
@@ -99,11 +98,11 @@ const Index = () => {
       case 'users':
         return 'bg-blue-50';
       case 'calendar':
-        return 'bg-blue-50';
+        return 'bg-green-50';
       case 'star':
         return 'bg-orange-50';
       case 'dollar':
-        return 'bg-green-50';
+        return 'bg-purple-50';
       default:
         return 'bg-blue-50';
     }
@@ -148,52 +147,43 @@ const Index = () => {
                 <Settings className="w-4 h-4" />
                 Configure
               </button>
-              <button className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors flex items-center gap-2">
-                DASHBOARD
-                <span>→</span>
-              </button>
               <span className="text-gray-500">{dashboardData?.lastUpdated}</span>
             </div>
           </div>
           
-          {/* Metrics Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Metrics Grid - Clean 4 column layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {dashboardData?.metrics.map((metric, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 ${getIconBg(metric.iconType)} rounded-lg flex items-center justify-center`}>
+              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-12 h-12 ${getIconBg(metric.iconType)} rounded-lg flex items-center justify-center`}>
                       {getIcon(metric.iconType)}
                     </div>
-                    <h3 className="text-sm font-medium text-gray-600 uppercase tracking-wide">{metric.title}</h3>
+                    {metric.change && (
+                      <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                        +{metric.change}
+                      </span>
+                    )}
                   </div>
-                </div>
-                
-                <div className="flex items-end gap-2 mb-2">
-                  <span className="text-3xl font-bold text-gray-900">{metric.value}</span>
-                  {metric.change && (
-                    <span className="text-sm font-medium text-green-600 flex items-center gap-1">
-                      <span>↗</span>
-                      {metric.change}
-                    </span>
-                  )}
-                </div>
-                
-                <p className="text-sm text-gray-500">{metric.subtitle}</p>
-              </div>
+                  
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{metric.title}</p>
+                    <p className="text-2xl font-bold text-gray-900">{metric.value}</p>
+                    <p className="text-sm text-gray-600">{metric.subtitle}</p>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
 
-          {/* Additional sections can be added here with collapsible */}
+          {/* Additional Insights Section */}
           <Card className="bg-white shadow-sm border border-gray-100">
             <Collapsible>
               <Collapsible.Head>
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-medium text-gray-700">Additional Insights</CardTitle>
+                    <CardTitle className="text-xl font-semibold text-gray-800">Additional Insights</CardTitle>
                     <Collapsible.Toggle 
                       openText="Hide Details" 
                       closeText="Show Details"
