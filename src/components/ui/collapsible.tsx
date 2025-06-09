@@ -1,3 +1,4 @@
+
 import React, {
   ButtonHTMLAttributes,
   createContext,
@@ -77,7 +78,7 @@ const Toggle = ({
           {closeText ? <span>{closeText}</span> : null}
           {closeIcon || (
             <ChevronUpIcon
-              svgProps={{ className: "h-1.5 w-2.5" }}
+              className="h-4 w-4"
               fill="#666666"
             />
           )}
@@ -87,7 +88,7 @@ const Toggle = ({
           {openText ? <span>{openText}</span> : null}
           {openIcon || (
             <ChevronDownIcon
-              svgProps={{ className: "h-1.5 w-2.5" }}
+              className="h-4 w-4"
               fill="#666666"
             />
           )}
