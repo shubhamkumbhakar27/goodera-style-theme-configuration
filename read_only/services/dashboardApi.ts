@@ -1,10 +1,9 @@
-
 export interface DashboardMetric {
   title: string;
   value: string;
   change: string;
   subtitle: string;
-  iconType: 'users' | 'calendar' | 'star' | 'dollar';
+  iconType: "users" | "calendar" | "star" | "dollar";
   changeColor: string;
 }
 
@@ -16,8 +15,8 @@ export interface DashboardData {
 // Mock API function - replace with real API endpoint
 export const fetchDashboardData = async (): Promise<DashboardData> => {
   // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   return {
     metrics: [
       {
@@ -26,7 +25,7 @@ export const fetchDashboardData = async (): Promise<DashboardData> => {
         change: "12%",
         subtitle: "+12% from last month",
         iconType: "users",
-        changeColor: "text-green-600"
+        changeColor: "text-green-600",
       },
       {
         title: "Events Completed",
@@ -34,7 +33,7 @@ export const fetchDashboardData = async (): Promise<DashboardData> => {
         change: "8%",
         subtitle: "+8 new events",
         iconType: "calendar",
-        changeColor: "text-green-600"
+        changeColor: "text-green-600",
       },
       {
         title: "Avg. Satisfaction",
@@ -42,7 +41,7 @@ export const fetchDashboardData = async (): Promise<DashboardData> => {
         change: "2%",
         subtitle: "+0.2 from last quarter",
         iconType: "star",
-        changeColor: "text-green-600"
+        changeColor: "text-green-600",
       },
       {
         title: "Budget Utilization",
@@ -50,9 +49,9 @@ export const fetchDashboardData = async (): Promise<DashboardData> => {
         change: "",
         subtitle: "$218,000 remaining",
         iconType: "dollar",
-        changeColor: "text-green-600"
-      }
+        changeColor: "text-green-600",
+      },
     ],
-    lastUpdated: "June 4, 2025"
+    lastUpdated: "June 4, 2025",
   };
 };
