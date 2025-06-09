@@ -44,10 +44,6 @@ interface CollapsibleHeadProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactElement | ReactElement[];
 }
 
-interface CollapsibleContentProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactElement | ReactElement[];
-}
-
 interface ToggleProps extends HTMLAttributes<HTMLSpanElement> {
   openText?: string;
   closeText?: string;
@@ -78,7 +74,7 @@ const Toggle = ({
           {closeText ? <span>{closeText}</span> : null}
           {closeIcon || (
             <ChevronUpIcon
-              className="h-4 w-4"
+              className="h-4 w-4 transition-transform duration-200"
               fill="#666666"
             />
           )}
@@ -88,7 +84,7 @@ const Toggle = ({
           {openText ? <span>{openText}</span> : null}
           {openIcon || (
             <ChevronDownIcon
-              className="h-4 w-4"
+              className="h-4 w-4 transition-transform duration-200"
               fill="#666666"
             />
           )}
@@ -104,14 +100,13 @@ const Head = ({ children, ...props }: CollapsibleHeadProps) => {
   const handleToggle = () => {
     setOpen((_isOpen) => {
       _isOpen ? onClose?.() : onOpen?.();
-
       return !_isOpen;
     });
   };
 
   return (
     <button
-      className="w-full outline-goodera-primary"
+      className="w-full outline-none focus:outline-none"
       {...props}
       onClick={handleToggle}
     >
@@ -125,12 +120,14 @@ const Content = ({ children, ...props }: CollapsibleContentProps) => {
 
   return (
     <div
-      aria-expanded={isOpen}
-      aria-hidden={!isOpen}
-      className="grid w-full transition-grid-template-rows aria-hidden:grid-rows-0 aria-expanded:grid-rows-1"
+      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+        isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+      }`}
       {...props}
     >
-      <div className="overflow-hidden">{children}</div>
+      <div className={`${isOpen ? 'block' : 'hidden'}`}>
+        {children}
+      </div>
     </div>
   );
 };
