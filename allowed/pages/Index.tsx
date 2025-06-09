@@ -82,30 +82,30 @@ const Index = () => {
   const getIcon = (iconType: string) => {
     switch (iconType) {
       case 'users':
-        return <Users className={`${icons.size.md} ${theme.colors.primary.purple[600]}`} />;
+        return <Users className={`${icons.size.md} text-blue-600`} />;
       case 'calendar':
-        return <Calendar className={`${icons.size.md} ${theme.colors.primary.blue[600]}`} />;
+        return <Calendar className={`${icons.size.md} text-blue-600`} />;
       case 'star':
         return <Star className={`${icons.size.md} text-orange-600`} />;
       case 'dollar':
-        return <DollarSign className={`${icons.size.md} ${theme.colors.primary.green[600]}`} />;
+        return <DollarSign className={`${icons.size.md} text-green-600`} />;
       default:
-        return <Users className={`${icons.size.md} ${theme.colors.primary.purple[600]}`} />;
+        return <Users className={`${icons.size.md} text-blue-600`} />;
     }
   };
 
   const getIconBg = (iconType: string) => {
     switch (iconType) {
       case 'users':
-        return theme.colors.primary.purple[100];
+        return 'bg-blue-50';
       case 'calendar':
-        return theme.colors.primary.blue[100];
+        return 'bg-blue-50';
       case 'star':
-        return theme.colors.primary.orange[100];
+        return 'bg-orange-50';
       case 'dollar':
-        return theme.colors.primary.green[100];
+        return 'bg-green-50';
       default:
-        return theme.colors.primary.purple[100];
+        return 'bg-blue-50';
     }
   };
 
@@ -132,110 +132,100 @@ const Index = () => {
       <div className="flex-1">
         <DashboardHeader />
         
-        <div className={`${theme.spacing.section} space-y-8`}>
-          {/* Header Section with improved styling */}
-          <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
-            <div className={`flex items-center justify-between`}>
-              <div>
-                <h2 
-                  className={`${theme.typography.heading['3xl']} ${theme.colors.text.primary} mb-3 bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent`}
-                  style={appliedTheme ? { color: appliedTheme.textColor } : undefined}
-                >
-                  Impact Dashboard
-                </h2>
-                <div className="flex items-center gap-4">
-                  <p className={`${theme.colors.text.secondary} flex items-center gap-2`}>
-                    <div className={`w-2 h-2 rounded-full ${useCustomApi ? 'bg-green-500' : 'bg-blue-500'} animate-pulse`}></div>
-                    {useCustomApi ? 'Connected to your custom API' : 'Using demo data'} • {dashboardData?.lastUpdated}
-                  </p>
-                  {error && (
-                    <p className="text-red-600 text-sm bg-red-50 px-3 py-1 rounded-full border border-red-200">⚠️ {error}</p>
-                  )}
-                </div>
-              </div>
-              
-              <div className={`flex items-center ${theme.spacing.gap.large}`}>
-                <button
-                  onClick={() => setShowConfigModal(true)}
-                  className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-sm border border-gray-200 hover:shadow-md hover:scale-105"
-                >
-                  <Settings className="w-4 h-4" />
-                  Configure
-                </button>
-                <button 
-                  className={`${theme.colors.primary.orange[500]} ${theme.colors.text.white} px-8 py-3 rounded-xl ${theme.typography.body.medium} flex items-center ${theme.spacing.gap.small} hover:${theme.colors.primary.orange[600]} transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105`}
-                  style={appliedTheme ? { backgroundColor: appliedTheme.primaryColor } : undefined}
-                >
-                  DASHBOARD
-                  <span className="transform transition-transform group-hover:translate-x-1">→</span>
-                </button>
-              </div>
+        <div className="p-8 space-y-8">
+          {/* Header Section */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Impact Dashboard</h1>
+              <p className="text-gray-600">Welcome back, Admin! Here's your volunteering program overview</p>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setShowConfigModal(true)}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                <Settings className="w-4 h-4" />
+                Configure
+              </button>
+              <button className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors flex items-center gap-2">
+                DASHBOARD
+                <span>→</span>
+              </button>
+              <span className="text-gray-500">{dashboardData?.lastUpdated}</span>
             </div>
           </div>
           
-          {/* Metrics Section with Collapsible */}
-          <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0 rounded-2xl overflow-hidden">
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {dashboardData?.metrics.map((metric, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 ${getIconBg(metric.iconType)} rounded-lg flex items-center justify-center`}>
+                      {getIcon(metric.iconType)}
+                    </div>
+                    <h3 className="text-sm font-medium text-gray-600 uppercase tracking-wide">{metric.title}</h3>
+                  </div>
+                </div>
+                
+                <div className="flex items-end gap-2 mb-2">
+                  <span className="text-3xl font-bold text-gray-900">{metric.value}</span>
+                  {metric.change && (
+                    <span className="text-sm font-medium text-green-600 flex items-center gap-1">
+                      <span>↗</span>
+                      {metric.change}
+                    </span>
+                  )}
+                </div>
+                
+                <p className="text-sm text-gray-500">{metric.subtitle}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Additional sections can be added here with collapsible */}
+          <Card className="bg-white shadow-sm border border-gray-100">
             <Collapsible>
-              <Collapsible.Head className="w-full outline-none group">
-                <CardHeader className="pb-4 hover:bg-gray-50/50 transition-colors duration-200">
+              <Collapsible.Head>
+                <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-medium text-gray-700 uppercase tracking-wider flex items-center gap-3">
-                      <div className="w-3 h-3 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full"></div>
-                      DASHBOARD METRICS
-                    </CardTitle>
+                    <CardTitle className="text-lg font-medium text-gray-700">Additional Insights</CardTitle>
                     <Collapsible.Toggle 
-                      openText="Hide Metrics" 
-                      closeText="Show Metrics"
-                      className="text-gray-600 hover:text-orange-600 transition-colors duration-200 font-medium text-sm"
+                      openText="Hide Details" 
+                      closeText="Show Details"
+                      className="text-gray-600 hover:text-gray-800 transition-colors font-medium text-sm"
                     />
                   </div>
                 </CardHeader>
               </Collapsible.Head>
               
               <Collapsible.Content>
-                <CardContent className="pt-0 pb-8">
-                  <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ${theme.spacing.gap.xlarge}`}>
-                    {dashboardData?.metrics.map((metric, index) => (
-                      <div
-                        key={index}
-                        className="transform transition-all duration-300 hover:scale-105 animate-fade-in"
-                        style={{ animationDelay: `${index * 100}ms` }}
-                      >
-                        <MetricCard
-                          title={metric.title}
-                          value={metric.value}
-                          change={metric.change}
-                          subtitle={metric.subtitle}
-                          icon={getIcon(metric.iconType)}
-                          iconBg={getIconBg(metric.iconType)}
-                          changeColor={metric.changeColor}
-                        />
-                      </div>
-                    ))}
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl p-6 text-white">
+                      <h3 className="text-lg font-semibold mb-2">Total Impact</h3>
+                      <p className="text-3xl font-bold">2.5M+</p>
+                      <p className="text-purple-200 text-sm">Lives Transformed</p>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl p-6 text-white">
+                      <h3 className="text-lg font-semibold mb-2">Global Reach</h3>
+                      <p className="text-3xl font-bold">150+</p>
+                      <p className="text-blue-200 text-sm">Countries Served</p>
+                    </div>
+                    <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-xl p-6 text-white">
+                      <h3 className="text-lg font-semibold mb-2">Partner Network</h3>
+                      <p className="text-3xl font-bold">500+</p>
+                      <p className="text-green-200 text-sm">Active Partners</p>
+                    </div>
                   </div>
                 </CardContent>
               </Collapsible.Content>
             </Collapsible>
           </Card>
-
-          {/* Additional Visual Enhancement - Stats Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-6 text-white shadow-xl">
-              <h3 className="text-lg font-semibold mb-2">Total Impact</h3>
-              <p className="text-3xl font-bold">2.5M+</p>
-              <p className="text-purple-200 text-sm">Lives Transformed</p>
-            </div>
-            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-6 text-white shadow-xl">
-              <h3 className="text-lg font-semibold mb-2">Global Reach</h3>
-              <p className="text-3xl font-bold">150+</p>
-              <p className="text-blue-200 text-sm">Countries Served</p>
-            </div>
-            <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl p-6 text-white shadow-xl">
-              <h3 className="text-lg font-semibold mb-2">Partner Network</h3>
-              <p className="text-3xl font-bold">500+</p>
-              <p className="text-green-200 text-sm">Active Partners</p>
-            </div>
-          </div>
         </div>
       </div>
 

@@ -75,7 +75,6 @@ const Toggle = ({
           {closeIcon || (
             <ChevronUpIcon
               className="h-4 w-4 transition-transform duration-200"
-              fill="#666666"
             />
           )}
         </>
@@ -85,7 +84,6 @@ const Toggle = ({
           {openIcon || (
             <ChevronDownIcon
               className="h-4 w-4 transition-transform duration-200"
-              fill="#666666"
             />
           )}
         </>
@@ -120,14 +118,18 @@ const Content = ({ children, ...props }: CollapsibleContentProps) => {
 
   return (
     <div
-      className={`overflow-hidden transition-all duration-300 ease-in-out ${
-        isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+      className={`transition-all duration-300 ease-in-out ${
+        isOpen 
+          ? 'max-h-[2000px] opacity-100' 
+          : 'max-h-0 opacity-0 overflow-hidden'
       }`}
       {...props}
     >
-      <div className={`${isOpen ? 'block' : 'hidden'}`}>
-        {children}
-      </div>
+      {isOpen && (
+        <div className="pt-4">
+          {children}
+        </div>
+      )}
     </div>
   );
 };
@@ -136,7 +138,7 @@ const CollapsibleWithRef = forwardRef(function Collapsible(
   { onOpen, onClose, children }: CollapsibleProps,
   ref
 ) {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true); // Start open by default
 
   useImperativeHandle(ref, () => ({
     open() {
