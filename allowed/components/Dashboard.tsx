@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Users, Calendar, Star, DollarSign, ArrowRight, TrendingUp } from 'lucide-react';
 
